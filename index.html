@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ember & Oak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chat-widget.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5efe6;
+      color: #1c1917;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+    .page-note { max-width: 420px; }
+    .page-note h1 { font-size: 22px; margin-bottom: 8px; }
+    .page-note p { color: #55504a; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <!-- This is a demo page. In your own site, this note isn't needed —
+       just drop the widget div + files into any existing page. -->
+  <div class="page-note">
+    <h1>This is your site.</h1>
+    <p>The chat widget sits fixed in the bottom-right corner, on every page it's included on. Click the bubble to try it (make sure the backend is running on localhost:3000 first).</p>
+  </div>
+
+  <!-- The widget mounts itself into this div. -->
+  <div id="ew-chat-widget"></div>
+  <script src="chat-widget.js"></script>
+</body>
+</html>
