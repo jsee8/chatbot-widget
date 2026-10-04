@@ -2,12 +2,12 @@
    Rename the CSS variables' values (not their names) to reskin for your own brand. */
 
 .ew-root {
-  --charcoal: #1c1917;
-  --charcoal-light: #2a2522;
-  --parchment: #f5efe6;
-  --parchment-dim: #cfc6b8;
-  --ember: #e8622c;
-  --ember-dim: #b74d22;
+  --charcoal: #182333;
+  --charcoal-light: #223047;
+  --parchment: #f6f3ec;
+  --parchment-dim: #b7ae9a;
+  --ember: #ad8a3e;
+  --ember-dim: #8f7130;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   position: fixed;
   bottom: 24px;
@@ -28,14 +28,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(232, 98, 44, 0.4);
+  box-shadow: 0 8px 24px rgba(173, 138, 62, 0.4);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
   position: relative;
   padding: 0;
 }
 .ew-launcher:hover {
   transform: scale(1.06);
-  box-shadow: 0 10px 28px rgba(232, 98, 44, 0.5);
+  box-shadow: 0 10px 28px rgba(173, 138, 62, 0.5);
 }
 .ew-launcher:focus-visible {
   outline: 3px solid var(--parchment);
