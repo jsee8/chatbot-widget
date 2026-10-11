@@ -154,7 +154,14 @@
   font-size: 13.5px;
   line-height: 1.45;
   white-space: pre-wrap;
+  overflow-wrap: anywhere; /* long web addresses wrap instead of spilling out */
 }
+.ew-bubble a {
+  color: #e3c883; /* lighter gold: readable on the dark bubble */
+  text-decoration: underline;
+}
+.ew-bubble a:hover { color: #fff; }
+.ew-bubble a:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
 .ew-bubble-user {
   background: var(--ember);
   color: #fff;

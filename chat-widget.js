@@ -113,6 +113,60 @@
 
   // --- Rendering ---------------------------------------------------------
 
+  // Turns the bot's text into safe page elements: web addresses become clickable links,
+  // **bold** becomes bold, and stray markdown headings (###) are removed.
+  // It builds elements instead of using innerHTML, so reply text can never inject HTML.
+  const INLINE_RE =
+    /\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)|\*\*(.+?)\*\*|(https?:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;=%]+)/g;
+
+  function addInline(parent, text) {
+    let last = 0;
+    // A fresh regex per call: the bold branch calls addInline again, and a shared
+    // regex would have its position reset by that inner call (an endless loop).
+    const re = new RegExp(INLINE_RE.source, "g");
+    let m;
+    while ((m = re.exec(text))) {
+      if (m.index > last) parent.appendChild(document.createTextNode(text.slice(last, m.index)));
+      if (m[3] !== undefined) {
+        const strong = document.createElement("strong");
+        addInline(strong, m[3]);
+        parent.appendChild(strong);
+      } else {
+        let label = m[1];
+        let url = m[2] || m[4];
+        let trail = "";
+        if (m[4]) {
+          // Don't swallow punctuation that ends the sentence, e.g. "...take-over."
+          const t = url.match(/[.,;:!?)'\]]+$/);
+          if (t) {
+            trail = t[0];
+            url = url.slice(0, -trail.length);
+          }
+        }
+        const a = document.createElement("a");
+        a.href = url;
+        a.textContent = label || url;
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        parent.appendChild(a);
+        if (trail) parent.appendChild(document.createTextNode(trail));
+      }
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) parent.appendChild(document.createTextNode(text.slice(last)));
+  }
+
+  function renderRich(parent, text) {
+    const lines = text
+      .split("\n")
+      .filter((line) => !/^\s*([-*_])\1{2,}\s*$/.test(line)) // drop "---" divider lines
+      .map((line) => line.replace(/^\s{0,3}#{1,6}\s+/, "")); // drop "### " heading marks
+    lines.forEach((line, i) => {
+      if (i > 0) parent.appendChild(document.createTextNode("\n"));
+      addInline(parent, line);
+    });
+  }
+
   function renderMessages() {
     scrollEl.innerHTML = "";
 
@@ -121,7 +175,8 @@
       row.className = `ew-msg-row ${m.role === "user" ? "user" : "agent"}`;
       const bubble = document.createElement("div");
       bubble.className = `ew-bubble ${m.role === "user" ? "ew-bubble-user" : "ew-bubble-agent"}`;
-      bubble.textContent = m.text;
+      if (m.role === "user") bubble.textContent = m.text;
+      else renderRich(bubble, m.text);
       row.appendChild(bubble);
       scrollEl.appendChild(row);
     }
