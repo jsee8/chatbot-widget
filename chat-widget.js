@@ -172,6 +172,7 @@
             role: m.role === "user" ? "user" : "assistant",
             content: m.text,
           })),
+          lang, // "en" or "zh": tells the server which language the window is set to
         }),
       });
 
