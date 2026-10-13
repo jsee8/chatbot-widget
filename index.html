@@ -131,6 +131,14 @@
       font-size: 13.5px;
     }
 
+    .feedback-link {
+      color: var(--gold-dim);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .feedback-link:hover { color: var(--ink); }
+
     @media (max-width: 520px) {
       .hero { padding: 40px 0 36px; }
       .catalog-list li { grid-template-columns: 28px 1fr; gap: 14px; }
@@ -196,6 +204,7 @@
 
     <footer class="site-footer">
       <p>A small project exploring how to make AI easier to understand.</p>
+      <p><a class="feedback-link" href="https://docs.google.com/forms/d/e/1FAIpQLSeJKj2gmr5A-rrW-t985LwYwqnvGd9rbzAObhFddeeppX-ukQ/viewform" target="_blank" rel="noopener noreferrer">Send feedback · 提供反馈</a></p>
     </footer>
   </div>
 
